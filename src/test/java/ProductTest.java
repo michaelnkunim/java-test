@@ -3,8 +3,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
 
 
 class ProductTest {
@@ -20,13 +22,13 @@ class ProductTest {
         ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
 
         Product product =  mockito.mock(Product.class);
-        mockito.when(product.getID()).thenReturn("775");
+        when(product.getID()).thenReturn("775");
 
         ProductPricingService productPricingService =  mockito.mock(ProductPricingService.class);
 
-        mockito.when(productPricingService.price(anyString(),anyString())).thenReturn(102.5);
+        when(productPricingService.price(anyString(),anyString())).thenReturn(102.5);
 
-        mockito.when(productPricingService.price(anyString(),anyString(),anyInt(),anyInt())).thenReturn(77.5);
+        when(productPricingService.price(anyString(),anyString(),anyInt(),anyInt())).thenReturn(77.5);
 
     }
 
@@ -43,14 +45,23 @@ class ProductTest {
         parisTradedProductsActual.trade(product,200);
     }
 
-    @Test
-     void ifTradeQuantityIsValid(){
 
+    @Test
+     void ifTradeQuantityIsValid() throws ProductAlreadyRegisteredException {
+        ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
+
+        Product product1 = mockito.mock(Product.class);
+        when(product1.getID()).thenReturn("75.0");
+
+        parisTradedProductsActual.addNewProduct(product1);
+        parisTradedProductsActual.trade(product1, 75);
+        //Albert and Joy - 5,
+        assertEquals("75.0", parisTradedProductsActual.totalTradeQuantityForDay(), "Product traded quantity is not valid");
     }
 
     @Test
-    void ifTotalValueOfDaysTradedProductsIsCorrect(){
-
+    void ifTotalValueOfDaysTradedProductsIsCorrect() throws ProductAlreadyRegisteredException {
+        ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
     }
 
 }

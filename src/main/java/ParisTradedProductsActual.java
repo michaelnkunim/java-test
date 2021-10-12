@@ -10,7 +10,7 @@ public class ParisTradedProductsActual implements  ParisTradedProducts{
     Map<Product,Integer>  tradesRegister  =  new HashMap<>();
 
     @Override
-    public void addNewProduct(Product product) throws ProductAlreadyRegisteredException {
+    public  void addNewProduct(Product product) throws ProductAlreadyRegisteredException {
         if(productsRegistered.contains(product)){
             throw new ProductAlreadyRegisteredException("This product already Exists");
         }else{
@@ -19,7 +19,7 @@ public class ParisTradedProductsActual implements  ParisTradedProducts{
     }
 
     @Override
-    public void trade(Product product, int quantity) {
+    public  void trade(Product product, int quantity) {
        if(!productsRegistered.contains(product)) {
            int currentQuantity = tradesRegister.get(product);
            tradesRegister.put(product,currentQuantity + quantity);
