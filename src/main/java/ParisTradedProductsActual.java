@@ -30,12 +30,16 @@ public class ParisTradedProductsActual implements  ParisTradedProducts{
 
     @Override
     public int totalTradeQuantityForDay() {
-      return tradesRegister.values().stream().mapToInt(quantity -> quantity).sum();
+     int totalQuantity  = tradesRegister.values().stream().mapToInt(quantity -> quantity).sum();
+        System.out.println(totalQuantity);
+        return totalQuantity;
     }
 
     @Override
     public double totalValueOfDaysTradedProducts() {
-        return  tradesRegister.keySet().stream().mapToDouble(p -> p.getPrice() * tradesRegister.get(p).doubleValue()).sum();
+        double totalTrades =  tradesRegister.keySet().stream().mapToDouble(p -> p.getPrice() * tradesRegister.get(p).doubleValue()).sum();
+        System.out.println(totalTrades);
+        return totalTrades;
     }
 
 

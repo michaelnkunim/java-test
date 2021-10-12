@@ -35,7 +35,7 @@ class ProductTest {
     @Test
     void ifProductCanBeAddedWhenItAlreadyExistsInProductRegister() throws ProductAlreadyRegisteredException {
         ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
-       Assertions.assertThrows(ProductAlreadyRegisteredException.class,()->parisTradedProductsActual.addNewProduct(product),"You See this Exception because       this product is a duplicate");
+       Assertions.assertThrows(ProductAlreadyRegisteredException.class,()-> parisTradedProductsActual.addNewProduct(product),"You See this Exception because this product is a duplicate");
       }
 
       @Test
@@ -49,14 +49,15 @@ class ProductTest {
     @Test
      void ifTradeQuantityIsValid() throws ProductAlreadyRegisteredException {
         ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
+        Product product = mockito.mock(Product.class);
+        when(product.getID()).thenReturn("775");
 
-        Product product1 = mockito.mock(Product.class);
-        when(product1.getID()).thenReturn("75.0");
+        parisTradedProductsActual.addNewProduct(product);
 
-        parisTradedProductsActual.addNewProduct(product1);
-        parisTradedProductsActual.trade(product1, 75);
+        parisTradedProductsActual.trade(product, 75);
+        System.out.println(parisTradedProductsActual.tradesRegister);
         //Albert and Joy - 5,
-        assertEquals("75.0", parisTradedProductsActual.totalTradeQuantityForDay(), "Product traded quantity is not valid");
+        assertEquals(String.valueOf(75), parisTradedProductsActual.totalTradeQuantityForDay(), "Product traded quantity is not valid");
     }
 
     @Test
