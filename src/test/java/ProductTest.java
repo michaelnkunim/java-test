@@ -35,7 +35,8 @@ class ProductTest {
     @Test
     void ifProductCanBeAddedWhenItAlreadyExistsInProductRegister() throws ProductAlreadyRegisteredException {
         ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
-       Assertions.assertThrows(ProductAlreadyRegisteredException.class,()-> parisTradedProductsActual.addNewProduct(product),"You See this Exception because this product is a duplicate");
+       Assertions.assertThrows(ProductAlreadyRegisteredException.class,()-> parisTradedProductsActual.addNewProduct(product),
+               "You See this Exception because this product is a duplicate");
       }
 
       @Test
@@ -57,12 +58,18 @@ class ProductTest {
         parisTradedProductsActual.trade(product, 75);
         System.out.println(parisTradedProductsActual.tradesRegister);
         //Albert and Joy - 5,
-        assertEquals(String.valueOf(75), parisTradedProductsActual.totalTradeQuantityForDay(), "Product traded quantity is not valid");
+        assertEquals(75, parisTradedProductsActual.totalTradeQuantityForDay(), "Product traded quantity is not valid");
     }
 
     @Test
     void ifTotalValueOfDaysTradedProductsIsCorrect() throws ProductAlreadyRegisteredException {
         ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
+
+        //b - price - 2, 5 = 10
+        Product future = new Future("444", "nyse", "f12f11", 8, 8, productPricingService);
+        parisTradedProductsActual.addNewProduct(future);
+        parisTradedProductsActual.trade(future, 5);
+        assertEquals(45, parisTradedProductsActual.totalValueOfDaysTradedProducts(), "Total value of days traded products is not valid");
     }
 
 }
