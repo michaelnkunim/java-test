@@ -57,7 +57,7 @@ class ProductTest {
 
         parisTradedProductsActual.trade(product, 75);
         System.out.println(parisTradedProductsActual.tradesRegister);
-        //Albert and Joy - 5,
+        
         assertEquals(75, parisTradedProductsActual.totalTradeQuantityForDay(), "Product traded quantity is not valid");
     }
 
@@ -65,7 +65,6 @@ class ProductTest {
     void ifTotalValueOfDaysTradedProductsIsCorrect() throws ProductAlreadyRegisteredException {
         ParisTradedProductsActual parisTradedProductsActual = new ParisTradedProductsActual();
 
-        //b - price - 2, 5 = 10
         Product future = new Future("444", "nyse", "f12f11", 8, 8, productPricingService);
         parisTradedProductsActual.addNewProduct(future);
         parisTradedProductsActual.trade(future, 5);
